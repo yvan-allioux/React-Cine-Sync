@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import VideoChapters from './VideoChapters';
-//import VideoMap from './VideoMap';
+import VideoMap from './VideoMap';
 
 const VideoPlayer = () => {
     const [videoData, setVideoData] = useState(null);
@@ -45,7 +45,7 @@ const VideoPlayer = () => {
             <button onClick={togglePlay}>{isPlaying ? 'Pause' : 'Play'}</button>
             <button onClick={fastForward}>Avance rapide 10s</button>
             <VideoChapters chapters={videoData.Chapters} videoRef={videoRef} />
-            {/* <VideoMap waypoints={videoData.Waypoints} videoRef={videoRef} /> */}
+            <VideoMap waypoints={videoData.Waypoints} videoRef={videoRef} />
         </div>
     );
 };

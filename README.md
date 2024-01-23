@@ -10,4 +10,5 @@ cd nom_du_projet
 npm start
 
 npm install leaflet react-leaflet
-
+npm install video-react
+npm install react-bootstrap bootstrap

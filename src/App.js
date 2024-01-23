@@ -1,5 +1,7 @@
 import React from 'react';
 import VideoPlayer from './VideoPlayer';
+import 'leaflet/dist/leaflet.css';
+
 
 function App() {
     return (

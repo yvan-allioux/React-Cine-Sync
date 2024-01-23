@@ -1,6 +1,28 @@
-import React from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import React, { useEffect } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
+
+const customIcon = L.icon({
+    iconUrl: '/marker-icon.png', // Specify your marker icon URL
+    iconSize: [25, 41], // Size of the icon
+    iconAnchor: [12, 41], // Point of the icon which will correspond to marker's location
+    popupAnchor: [1, -34], // Point from which the popup should open relative to the iconAnchor
+    shadowUrl: null // No shadow
+});
+
+
+const MapBounds = ({ waypoints }) => {
+    const map = useMap();
+
+    useEffect(() => {
+        if (waypoints.length > 0) {
+            const bounds = L.latLngBounds(waypoints.map(wp => [wp.lat, wp.lng]));
+            map.fitBounds(bounds);
+        }
+    }, [waypoints, map]);
+
+    return null;
+};
 
 const VideoMap = ({ waypoints, videoRef }) => {
     const navigateToTimestamp = (timestamp) => {
@@ -11,23 +33,29 @@ const VideoMap = ({ waypoints, videoRef }) => {
     };
 
     return (
-        <MapContainer center={[0, 0]} zoom={2} style={{ height: '400px', width: '100%' }}>
+        <MapContainer center={[0, 0]} zoom={2} style={{ height: '400px', width: '100%' }} whenCreated={mapInstance => { this.map = mapInstance; }}>
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
-            {waypoints.map((point, index) => (
+            {waypoints.map((waypoint, index) => (
                 <Marker
                     key={index}
-                    position={[point.lat, point.lng]}
-                    onClick={() => navigateToTimestamp(point.timestamp)}
+                    position={[waypoint.lat, waypoint.lng]}
+                    icon={customIcon} // Use custom icon here
+                    eventHandlers={{
+                        click: () => navigateToTimestamp(waypoint.timestamp),
+                    }}
                 >
                     <Popup>
-                        {point.label}
+                        {waypoint.label}
                     </Popup>
                 </Marker>
             ))}
+            <MapBounds waypoints={waypoints} />
         </MapContainer>
     );
 };
 
 export default VideoMap;
+
