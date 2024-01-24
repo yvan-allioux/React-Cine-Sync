@@ -2,11 +2,22 @@ import React, { useEffect, useState, useRef } from 'react';
 import VideoChapters from './VideoChapters';
 import VideoMap from './VideoMap';
 
+
 const VideoPlayer = () => {
     const [videoData, setVideoData] = useState(null);
     const videoRef = useRef(null);
     const [isPlaying, setIsPlaying] = useState(false);
+    const [currentTime, setCurrentTime] = useState(0);
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (videoRef.current) {
+                setCurrentTime(videoRef.current.currentTime);
+            }
+        }, 1000); // Mise à jour chaque seconde
+    
+        return () => clearInterval(interval); // Nettoyage
+    }, []);
     useEffect(() => {
         fetch('https://imr3-react.herokuapp.com/backend')
             .then(response => response.json())
@@ -44,7 +55,7 @@ const VideoPlayer = () => {
             <br />
             <button onClick={togglePlay}>{isPlaying ? 'Pause' : 'Play'}</button>
             <button onClick={fastForward}>Avance rapide 10s</button>
-            <VideoChapters chapters={videoData.Chapters} videoRef={videoRef} />
+            <VideoChapters chapters={videoData.Chapters} videoRef={videoRef} currentTime={currentTime} />
             <VideoMap waypoints={videoData.Waypoints} videoRef={videoRef} />
         </div>
     );

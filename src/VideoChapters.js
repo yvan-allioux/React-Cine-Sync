@@ -9,8 +9,7 @@ const formatTime = (seconds) => {
     return `${hours}:${minutes}:${sec}`;
 };
 
-const VideoChapters = ({ chapters, videoRef }) => {
-
+const VideoChapters = ({ chapters, videoRef, currentTime }) => {
     const navigateToChapter = (timestamp) => {
         if (videoRef.current) {
             videoRef.current.currentTime = timestamp;
@@ -18,12 +17,18 @@ const VideoChapters = ({ chapters, videoRef }) => {
         }
     };
 
+    const isChapterPlaying = (startTime, endTime) => {
+        return currentTime >= startTime && currentTime < endTime;
+    };
+
     return (
         <div>
             <h3>Chapitres</h3>
             <ul>
                 {chapters.map((chapter, index) => (
-                    <li key={index} onClick={() => navigateToChapter(chapter.pos)}>
+                    <li key={index} 
+                        onClick={() => navigateToChapter(chapter.pos)}
+                        style={{ fontWeight: isChapterPlaying(chapter.pos, chapters[index + 1]?.pos || Infinity) ? 'bold' : 'normal' }}>
                         {chapter.title} {formatTime(parseInt(chapter.pos))}
                     </li>
                 ))}
@@ -31,5 +36,7 @@ const VideoChapters = ({ chapters, videoRef }) => {
         </div>
     );
 };
+
+
 
 export default VideoChapters;
