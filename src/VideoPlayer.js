@@ -29,12 +29,25 @@ const VideoPlayer = () => {
         if (videoRef.current) {
             if (isPlaying) {
                 videoRef.current.pause();
+                setIsPlaying(false);
             } else {
-                videoRef.current.play();
+                const playPromise = videoRef.current.play();
+    
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        setIsPlaying(true);
+                    }).catch(error => {
+                        console.error('Error attempting to play the video: ', error);
+                    });
+                } else {
+                    // Dans le cas où play() ne retourne pas une promesse (comportement non standard)
+                    setIsPlaying(true);
+                }
             }
-            setIsPlaying(!isPlaying);
         }
     };
+    
+    
 
     const fastForward = () => {
         if (videoRef.current) {
@@ -53,10 +66,10 @@ const VideoPlayer = () => {
                 Votre navigateur ne supporte pas les vidéos HTML5.
             </video>
             <br />
-            <button onClick={togglePlay}>{isPlaying ? 'Pause' : 'Play'}</button>
+            <button onClick={togglePlay}>{isPlaying ? 'Pause' : 'Play'}</button>{/* TODO a supprimer ça fait buger */}
             <button onClick={fastForward}>Avance rapide 10s</button>
             <VideoChapters chapters={videoData.Chapters} videoRef={videoRef} currentTime={currentTime} />
-            <VideoMap waypoints={videoData.Waypoints} videoRef={videoRef} />
+            <VideoMap waypoints={videoData.Waypoints} videoRef={videoRef} currentTime={currentTime} />
         </div>
     );
 };
