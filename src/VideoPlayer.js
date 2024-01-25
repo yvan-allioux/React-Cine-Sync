@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import VideoChapters from './VideoChapters';
 import VideoMap from './VideoMap';
 import VideoKeywords from './VideoKeywords';
+import VideoChat from './VideoChat';
 
 const VideoPlayer = () => {
     const [videoData, setVideoData] = useState(null);
@@ -68,6 +69,7 @@ const VideoPlayer = () => {
             <br />
             <button onClick={togglePlay}>{isPlaying ? 'Pause' : 'Play'}</button>
             <button onClick={fastForward}>Avance rapide 10s</button>
+            <VideoChat />
             <VideoChapters chapters={videoData.Chapters} videoRef={videoRef} currentTime={currentTime} />
             <VideoKeywords keywords={videoData.Keywords} currentTime={currentTime} />
             <VideoMap waypoints={videoData.Waypoints} videoRef={videoRef} currentTime={currentTime} />
