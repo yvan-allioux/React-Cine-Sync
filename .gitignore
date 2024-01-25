@@ -1,4 +1,5 @@
 *.mp4
+prompt*
 
 # dependencies
 /node_modules

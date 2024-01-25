@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import VideoChapters from './VideoChapters';
 import VideoMap from './VideoMap';
-
+import VideoKeywords from './VideoKeywords';
 
 const VideoPlayer = () => {
     const [videoData, setVideoData] = useState(null);
@@ -66,9 +66,10 @@ const VideoPlayer = () => {
                 Votre navigateur ne supporte pas les vidéos HTML5.
             </video>
             <br />
-            <button onClick={togglePlay}>{isPlaying ? 'Pause' : 'Play'}</button>{/* TODO a supprimer ça fait buger */}
+            <button onClick={togglePlay}>{isPlaying ? 'Pause' : 'Play'}</button>
             <button onClick={fastForward}>Avance rapide 10s</button>
             <VideoChapters chapters={videoData.Chapters} videoRef={videoRef} currentTime={currentTime} />
+            <VideoKeywords keywords={videoData.Keywords} currentTime={currentTime} />
             <VideoMap waypoints={videoData.Waypoints} videoRef={videoRef} currentTime={currentTime} />
         </div>
     );
