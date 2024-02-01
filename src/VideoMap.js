@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
+import { Container, Row, Col} from 'react-bootstrap';
 
 const customIcon = L.icon({
     iconUrl: '/marker-icon.png', // Specify your marker icon URL
@@ -41,30 +42,38 @@ const VideoMap = ({ waypoints, videoRef, currentTime}) => {
     };
 
     return (
-        <MapContainer center={[0, 0]} zoom={2} style={{ height: '400px', width: '100%' }} whenCreated={mapInstance => { this.map = mapInstance; }}>
-            <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            />
-            {waypoints.map((waypoint, index) => {
-                const isActive = currentTime >= waypoint.timestamp && currentTime < (waypoints[index + 1]?.timestamp || Infinity);
-                return (
-                    <Marker
-                        key={index}
-                        position={[waypoint.lat, waypoint.lng]}
-                        icon={isActive ? customIconBLUE : customIcon} // Changement d'icône ici
-                        eventHandlers={{
-                            click: () => navigateToTimestamp(waypoint.timestamp),
-                        }}
-                    >
-                        <Popup>
-                            {waypoint.label}
-                        </Popup>
-                    </Marker>
-                );
-            })}
-            <MapBounds waypoints={waypoints} />
-        </MapContainer>
+        <Container fluid>
+            <Row className="justify-content-md-center">
+                <Col xs={12}>
+                    <h3 className="text-center mt-3">Carte des Waypoints</h3>
+                    <MapContainer center={[0, 0]} zoom={2} style={{ height: '400px', width: '100%' }}>
+                        <TileLayer
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        />
+                        {waypoints.map((waypoint, index) => {
+                            const isActive = currentTime >= waypoint.timestamp && currentTime < (waypoints[index + 1]?.timestamp || Infinity);
+                            return (
+                                <Marker
+                                    key={index}
+                                    position={[waypoint.lat, waypoint.lng]}
+                                    icon={isActive ? customIconBLUE : customIcon} // Changement d'icône ici
+                                    eventHandlers={{
+                                        click: () => navigateToTimestamp(waypoint.timestamp),
+                                    }}
+                                >
+                                    <Popup>
+                                        {waypoint.label}
+                                    </Popup>
+                                </Marker>
+                            );
+                        })}
+                        <MapBounds waypoints={waypoints} />
+                    </MapContainer>
+                </Col>
+            </Row>
+        </Container>
+
     );
 };
 

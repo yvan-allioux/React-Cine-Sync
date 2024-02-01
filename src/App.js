@@ -1,6 +1,7 @@
 import React from 'react';
 import VideoPlayer from './VideoPlayer';
 import 'leaflet/dist/leaflet.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function App() {

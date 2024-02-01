@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Button, Form, Card, ListGroup } from 'react-bootstrap';
 
 const VideoChat = () => {
     const [messages, setMessages] = useState([]);
@@ -15,7 +16,12 @@ const VideoChat = () => {
                 setMessages(prevMessages => [...prevMessages, ...newMessage]);
             }
         };
-        return () => websocket.current.close();
+        
+        websocket.current.onerror = (error) => {
+            console.error('WebSocket error:', error);
+        };
+        
+        //return () => websocket.current.close();
     }, []);
 
     const sendMessage = () => {
@@ -31,28 +37,37 @@ const VideoChat = () => {
     const displayedMessages = filteredMessages.slice(-10);
 
     return (
-        <div>
-            <div>
-                {displayedMessages.map((msg, index) => (
-                    <p key={index}><strong>{msg.name}:</strong> {msg.message}</p>
-                ))}
-            </div>
-            <div>
-                <input 
-                    type="text" 
-                    value={name} 
-                    onChange={(e) => setName(e.target.value)} 
-                    placeholder="Votre nom" 
-                />
-                <input 
-                    type="text" 
-                    value={message} 
-                    onChange={(e) => setMessage(e.target.value)} 
-                    placeholder="Votre message" 
-                />
-                <button onClick={sendMessage}>Envoyer</button>
-            </div>
-        </div>
+        <Card>
+            <Card.Body>
+                <Card.Title>Chat</Card.Title>
+                <ListGroup variant="flush">
+                    {displayedMessages.map((msg, index) => (
+                        <ListGroup.Item key={index}><strong>{msg.name}:</strong> {msg.message}</ListGroup.Item>
+                    ))}
+                </ListGroup>
+            </Card.Body>
+            <Card.Footer>
+                <Form>
+                    <Form.Group className="mb-3" controlId="name">
+                        <Form.Control 
+                            type="text" 
+                            value={name} 
+                            onChange={(e) => setName(e.target.value)} 
+                            placeholder="Votre nom" 
+                        />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="message">
+                        <Form.Control 
+                            type="text" 
+                            value={message} 
+                            onChange={(e) => setMessage(e.target.value)} 
+                            placeholder="Votre message" 
+                        />
+                    </Form.Group>
+                    <Button variant="primary" onClick={sendMessage}>Envoyer</Button>
+                </Form>
+            </Card.Footer>
+        </Card>
     );
 };
 
