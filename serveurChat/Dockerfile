@@ -1,0 +1,36 @@
+# Utiliser l'image officielle de Go pour la construction
+FROM golang:latest AS builder
+
+# Définir un répertoire de travail
+WORKDIR /app
+
+# Copier les fichiers Go locaux dans le conteneur
+COPY . .
+
+# dep
+RUN go mod tidy
+
+# Compiler l'application Go
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o server .
+
+# Utiliser une image de base scratch pour une image finale légère
+FROM alpine:latest
+
+WORKDIR /root/
+
+# Copier l'exécutable compilé depuis le stage de build
+COPY --from=builder /app/server .
+
+# Exposer le port sur lequel le service sera accessible dans le conteneur
+EXPOSE 8080
+
+# Commande à exécuter lorsque le conteneur démarre (note qu'on utilise maintenant l'exécutable)
+CMD ["./server"]
+
+# Construire l'image Docker
+#docker build -t secret_generation_protocol-server -f Dockerfile.server .
+
+# Exécuter l'application Go dans un conteneur Docker
+#docker run -p 8080:8080 secret_generation_protocol-server
+
+#docker build -t secret_generation_protocol-server -f Dockerfile.server . && docker run  -p 8080:8080 secret_generation_protocol-server
