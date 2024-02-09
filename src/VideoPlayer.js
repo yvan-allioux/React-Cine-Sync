@@ -84,7 +84,9 @@ const VideoPlayer = () => {
                     </div>
                 </Col>
             </Row>
+            
             <VideoChat />
+            
             <Row>
                 <Col>
                     <VideoChapters chapters={videoData.Chapters} videoRef={videoRef} currentTime={currentTime} />
