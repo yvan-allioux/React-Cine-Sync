@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/React-Cine-Sync/static/css/main.b71346ab.css",
+    "main.js": "/React-Cine-Sync/static/js/main.a1cc6e4e.js",
+    "static/js/787.31abc5ee.chunk.js": "/React-Cine-Sync/static/js/787.31abc5ee.chunk.js",
+    "index.html": "/React-Cine-Sync/index.html",
+    "main.b71346ab.css.map": "/React-Cine-Sync/static/css/main.b71346ab.css.map",
+    "main.a1cc6e4e.js.map": "/React-Cine-Sync/static/js/main.a1cc6e4e.js.map",
+    "787.31abc5ee.chunk.js.map": "/React-Cine-Sync/static/js/787.31abc5ee.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b71346ab.css",
+    "static/js/main.a1cc6e4e.js"
+  ]
+}
