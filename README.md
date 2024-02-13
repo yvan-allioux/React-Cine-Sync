@@ -8,9 +8,15 @@ Le projet "CinéMap Reactor" est une application web React innovante qui permet 
 
 
 npx create-react-app nom_du_projet
+
 cd nom_du_projet
+
 npm start
 
 npm install leaflet react-leaflet
+
 npm install video-react
+
 npm install react-bootstrap bootstrap
+
+npm install gh-pages --save-dev
