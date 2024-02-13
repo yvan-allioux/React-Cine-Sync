@@ -4,7 +4,7 @@ import L from 'leaflet';
 import { Container, Row, Col} from 'react-bootstrap';
 
 const customIcon = L.icon({
-    iconUrl: '/marker-icon.png', // Specify your marker icon URL
+    iconUrl: process.env.PUBLIC_URL + '/marker-icon.png', // Specify your marker icon URL
     iconSize: [25, 41], // Size of the icon
     iconAnchor: [12, 41], // Point of the icon which will correspond to marker's location
     popupAnchor: [1, -34], // Point from which the popup should open relative to the iconAnchor
@@ -12,7 +12,7 @@ const customIcon = L.icon({
 });
 
 const customIconBLUE = L.icon({
-    iconUrl: '/marker-icon-blue.png', // Specify your marker icon URL
+    iconUrl: process.env.PUBLIC_URL + '/marker-icon-blue.png', // Specify your marker icon URL
     iconSize: [25, 41], // Size of the icon
     iconAnchor: [12, 41], // Point of the icon which will correspond to marker's location
     popupAnchor: [1, -34], // Point from which the popup should open relative to the iconAnchor
