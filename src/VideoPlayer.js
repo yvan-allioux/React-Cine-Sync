@@ -92,8 +92,8 @@ const VideoPlayer = () => {
                     <VideoMap waypoints={videoData.Waypoints} videoRef={videoRef} currentTime={currentTime} />
                 </Col>
                 <Col md={3}>
-                    {/* Le chat à droite */}
-                    <VideoChat />
+                    {/* Le chat à droite <VideoChat />*/}
+                    
                 </Col>
             </Row>
         </Container>
