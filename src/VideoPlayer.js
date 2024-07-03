@@ -22,12 +22,12 @@ const VideoPlayer = () => {
         return () => clearInterval(interval);
     }, []);
 
-    useEffect(() => {
+    /*useEffect(() => {
         fetch('https://imr3-react.herokuapp.com/backend')
             .then(response => response.json())
             .then(data => setVideoData(data))
             .catch(error => console.error('Error fetching data: ', error));
-    }, []);
+    }, []);*/
 
     const togglePlay = () => {
         if (videoRef.current) {
