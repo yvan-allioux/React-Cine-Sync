@@ -1,6 +1,6 @@
 # React-Cine-Sync
 
-dev uniquement par yvan allioux
+dev par yvan allioux
 
 lien :
 
