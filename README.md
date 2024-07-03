@@ -26,3 +26,6 @@ npm install gh-pages --save-dev
 npm install
 
 npm start
+
+npm run deploy
+
